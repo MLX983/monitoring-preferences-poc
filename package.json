@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:gh-pages": "GITHUB_ACTIONS=true npm run build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:gh-pages": "npm run build:gh-pages && vite preview --base /monitoring-preferences-poc/"
   },
   "dependencies": {
     "react": "^19.2.0",
