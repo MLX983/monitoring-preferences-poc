@@ -45,9 +45,10 @@ const STABILITY_MESSAGE_BY_POSTURE: Record<PostureId, string> = {
 };
 
 /** Match `.card-title-layer` transition duration in primitives.css */
-const FADE_MS = 180;
-/** Hold stability line after fade-in; total sequence ≈ FADE + HOLD + FADE (~810ms). */
-const HOLD_MS = 450;
+const PRE_DELAY_MS = 300;
+const FADE_MS = 450;
+/** Hold stability line fully visible before fading out. */
+const HOLD_MS = 900;
 
 type Props = {
   posture: Posture;
@@ -85,6 +86,11 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
 
     clearTimers();
 
+    const schedule = (delayMs: number, fn: () => void) => {
+      const t = window.setTimeout(fn, delayMs);
+      timersRef.current.push(t);
+    };
+
     const reducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -95,7 +101,7 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
       const t = window.setTimeout(() => {
         setLayerStabilityOpacity(0);
         setLayerPostureOpacity(1);
-      }, FADE_MS + HOLD_MS);
+      }, PRE_DELAY_MS + HOLD_MS);
       timersRef.current.push(t);
       return () => clearTimers();
     }
@@ -114,15 +120,27 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
     let raf2 = 0;
     raf1 = window.requestAnimationFrame(() => {
       raf2 = window.requestAnimationFrame(() => {
-        setLayerPostureOpacity(0);
-        setLayerStabilityOpacity(1);
+        // 1) Brief pause on default title.
+        // 2) Fade default out.
+        // 3) Fade stability in.
+        // 4) Hold.
+        // 5) Fade stability out.
+        // 6) Fade default back in.
+        schedule(PRE_DELAY_MS, () => {
+          setLayerPostureOpacity(0);
+        });
 
-        const tHold = window.setTimeout(() => {
-          setLayerPostureOpacity(1);
+        schedule(PRE_DELAY_MS + FADE_MS, () => {
+          setLayerStabilityOpacity(1);
+        });
+
+        schedule(PRE_DELAY_MS + FADE_MS + FADE_MS + HOLD_MS, () => {
           setLayerStabilityOpacity(0);
-        }, FADE_MS + HOLD_MS);
+        });
 
-        timersRef.current.push(tHold);
+        schedule(PRE_DELAY_MS + FADE_MS + FADE_MS + HOLD_MS + FADE_MS, () => {
+          setLayerPostureOpacity(1);
+        });
       });
     });
 

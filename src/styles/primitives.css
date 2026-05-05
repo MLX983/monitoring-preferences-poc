@@ -293,9 +293,9 @@
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
-    /* Keep in sync with ResultsCard FADE_MS (180ms each crossfade; Safari needs explicit longhand) */
+    /* Keep in sync with ResultsCard FADE_MS (450ms dissolve; Safari needs explicit longhand) */
     transition-property: opacity;
-    transition-duration: 180ms;
+    transition-duration: 450ms;
     transition-timing-function: ease;
   }
 
