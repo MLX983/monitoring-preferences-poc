@@ -437,7 +437,7 @@
     margin: 6px 0;
     padding: 0;
     height: 20px;
-    touch-action: manipulation;
+    cursor: default;
   }
   
   .slider:focus {
@@ -466,14 +466,10 @@
     background: var(--slider-thumb-fill, #0055cc);
     border: var(--slider-thumb-border, none);
     box-shadow: var(--slider-thumb-shadow, 0 1px 3px rgba(0, 0, 0, 0.15));
-    cursor: grab;
+    cursor: default;
   
     /* vertically center thumb on track */
     margin-top: calc((var(--slider-thumb-size, 20px) - var(--slider-track-height, 6px)) / -2);
-  }
-  
-  .slider::-webkit-slider-thumb:active {
-    cursor: grabbing;
   }
   
   /* Firefox slider styles */
@@ -498,11 +494,7 @@
     background: var(--slider-thumb-fill, #0055cc);
     border: none;
     box-shadow: var(--slider-thumb-shadow, 0 1px 3px rgba(0, 0, 0, 0.15));
-    cursor: grab;
-  }
-  
-  .slider::-moz-range-thumb:active {
-    cursor: grabbing;
+    cursor: default;
   }
   
   .slider:focus-visible::-webkit-slider-thumb {

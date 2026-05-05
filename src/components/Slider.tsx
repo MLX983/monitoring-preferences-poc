@@ -24,6 +24,13 @@ type Props = {
   onAdjustmentSessionEnd?: () => void;
 };
 
+/**
+ * Native `<input type="range">` only.
+ *
+ * Do **not** call `setPointerCapture` on range inputs — Safari/WebKit treats it as part of the
+ * native drag gesture and can leave the thumb “stuck” to the pointer until a second click.
+ * Session end uses window `pointerup` / `pointercancel` only (no capture).
+ */
 export default function Slider({
   value,
   onChange,
@@ -54,46 +61,52 @@ export default function Slider({
   function beginPointerSession(event: React.PointerEvent<HTMLInputElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
 
+    if (pointerActiveRef.current) {
+      pointerSessionCleanupRef.current?.();
+    }
+
     if (keyboardSessionRef.current) {
       keyboardSessionRef.current = false;
       onAdjustmentSessionEnd?.();
     }
 
+    const el = event.currentTarget;
+    const pointerId = event.pointerId;
+
     pointerActiveRef.current = true;
     onAdjustmentSessionStart?.();
 
-    const pointerId = event.pointerId;
-    const el = event.currentTarget;
-    try {
-      el.setPointerCapture(pointerId);
-    } catch {
-      /* older engines */
-    }
-
-    const handleUp = (ev: PointerEvent) => {
-      if (ev.pointerId !== pointerId) return;
-      try {
-        if (el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
-      } catch {
-        /* ignore */
-      }
-      window.removeEventListener("pointerup", handleUp);
-      window.removeEventListener("pointercancel", handleUp);
+    const finishPointerSession = () => {
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
       pointerSessionCleanupRef.current = null;
+
+      if (!pointerActiveRef.current) return;
       pointerActiveRef.current = false;
+
+      if (document.activeElement === el) {
+        el.blur();
+      }
+
       onAdjustmentSessionEnd?.();
     };
 
-    window.addEventListener("pointerup", handleUp);
-    window.addEventListener("pointercancel", handleUp);
+    const onPointerUp = (ev: PointerEvent) => {
+      if (ev.pointerId !== pointerId) return;
+      finishPointerSession();
+    };
+
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
+
     pointerSessionCleanupRef.current = () => {
-      try {
-        if (el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
-      } catch {
-        /* ignore */
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+      pointerSessionCleanupRef.current = null;
+      if (pointerActiveRef.current) {
+        pointerActiveRef.current = false;
+        onAdjustmentSessionEnd?.();
       }
-      window.removeEventListener("pointerup", handleUp);
-      window.removeEventListener("pointercancel", handleUp);
     };
   }
 
