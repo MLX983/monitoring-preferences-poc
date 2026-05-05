@@ -268,8 +268,10 @@
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
-    /* Keep in sync with ResultsCard FADE_*_MS (single duration matches both crossfades) */
-    transition: opacity 0.2s ease;
+    /* Keep in sync with ResultsCard FADE_MS (~200ms each crossfade; Safari needs explicit longhand) */
+    transition-property: opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
   }
 
   .card-title-layer--overlay {

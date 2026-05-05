@@ -1,4 +1,5 @@
 import * as React from "react";
+import { flushSync } from "react-dom";
 import type { Posture, PostureId } from "../logic/computeRecommendation";
 
 /**
@@ -43,8 +44,9 @@ const STABILITY_MESSAGE_BY_POSTURE: Record<PostureId, string> = {
   manual_check: "Still keeping notifications sparse",
 };
 
-/** Match `.card-title-layer { transition: opacity … }` in primitives.css (in + out ≈ 200ms each; total sequence ≈ 200 + 950 + 200ms). */
-const FADE_IN_MS = 200;
+/** Match `.card-title-layer` transition duration in primitives.css */
+const FADE_MS = 200;
+/** Hold stability line visible after fade-in completes (~900–1000ms target). */
 const HOLD_MS = 950;
 
 type Props = {
@@ -54,15 +56,11 @@ type Props = {
 };
 
 export default function ResultsCard({ posture, stabilityPulse }: Props) {
-  // IMPORTANT: no memoization that can go stale.
-  // This recomputes every render based on current posture.id.
   const copy = COPY_BY_POSTURE[posture.id];
 
-  // Fallback: if an id is missing from the map (shouldn't happen), use logic copy.
   const headline = copy?.title ?? posture.title;
   const whyLabel = copy?.whyLabel ?? "Here's why";
 
-  // If mapping exists, use it; otherwise use posture.reasons (both!)
   const reasons: [string, string] = copy?.reasons ?? posture.reasons;
 
   const stabilityLine = STABILITY_MESSAGE_BY_POSTURE[posture.id];
@@ -86,8 +84,6 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
     if (stabilityPulse === 0) return;
 
     clearTimers();
-    setLayerPostureOpacity(1);
-    setLayerStabilityOpacity(0);
 
     const reducedMotion =
       typeof window !== "undefined" &&
@@ -104,30 +100,31 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
       return () => clearTimers();
     }
 
-    const startFadeToStability = () => {
-      setLayerPostureOpacity(0);
-      setLayerStabilityOpacity(1);
-    };
-
-    const startFadeToPosture = () => {
+    /**
+     * Safari/WebKit + React 18 may skip CSS opacity transitions if batched updates never
+     * commit a “reset” frame. flushSync commits the baseline; rAF starts the crossfade on
+     * the next paint so `transition: opacity` runs reliably.
+     */
+    flushSync(() => {
       setLayerPostureOpacity(1);
       setLayerStabilityOpacity(0);
-    };
-
-    let raf2 = 0;
-    const raf1 = window.requestAnimationFrame(() => {
-      raf2 = window.requestAnimationFrame(startFadeToStability);
     });
 
-    const tHold = window.setTimeout(() => {
-      startFadeToPosture();
-    }, FADE_IN_MS + HOLD_MS);
+    let rafId = 0;
+    rafId = window.requestAnimationFrame(() => {
+      setLayerPostureOpacity(0);
+      setLayerStabilityOpacity(1);
 
-    timersRef.current.push(tHold);
+      const tHold = window.setTimeout(() => {
+        setLayerPostureOpacity(1);
+        setLayerStabilityOpacity(0);
+      }, FADE_MS + HOLD_MS);
+
+      timersRef.current.push(tHold);
+    });
 
     return () => {
-      cancelAnimationFrame(raf1);
-      cancelAnimationFrame(raf2);
+      window.cancelAnimationFrame(rafId);
       clearTimers();
     };
   }, [stabilityPulse, clearTimers]);
