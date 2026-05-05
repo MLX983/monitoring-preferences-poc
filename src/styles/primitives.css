@@ -358,7 +358,9 @@
     z-index: 100;
     display: grid;
     place-items: center;
-    padding: clamp(12px, 4vw, 24px);
+    /* Match page content side padding (16px) while keeping vertical breathing room. */
+    padding-block: clamp(12px, 4vw, 24px);
+    padding-inline: 16px;
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.45);
   }
