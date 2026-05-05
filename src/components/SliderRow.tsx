@@ -48,8 +48,10 @@ export default function SliderRow({
         </button>
       </div>
 
-      {/* Info panel only shows when accordion is open */}
-      {open && (
+      <div
+        className={`info-panel-disclosure${open ? " info-panel-disclosure--open" : ""}`}
+        aria-hidden={!open}
+      >
         <div id={panelId} className="info-panel">
           {infoParagraphs.map((paragraph, index) => (
             <div key={index} className="info-panel-body">
@@ -57,7 +59,7 @@ export default function SliderRow({
             </div>
           ))}
         </div>
-      )}
+      </div>
 
       <Slider
         value={value}
