@@ -133,11 +133,9 @@ export default function MonitoringPreferences() {
   }, []);
 
   function setValue(key: SliderKey, next: number) {
-    setValues((prev) => {
-      const nextValues = { ...prev, [key]: next };
-      valuesRef.current = nextValues;
-      return nextValues;
-    });
+    const nextValues = { ...valuesRef.current, [key]: next };
+    valuesRef.current = nextValues;
+    setValues(nextValues);
   }
 
   return (

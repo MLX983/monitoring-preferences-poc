@@ -45,9 +45,9 @@ const STABILITY_MESSAGE_BY_POSTURE: Record<PostureId, string> = {
 };
 
 /** Match `.card-title-layer` transition duration in primitives.css */
-const FADE_MS = 200;
-/** Hold stability line visible after fade-in completes (~900–1000ms target). */
-const HOLD_MS = 950;
+const FADE_MS = 180;
+/** Hold stability line after fade-in; total sequence ≈ FADE + HOLD + FADE (~810ms). */
+const HOLD_MS = 450;
 
 type Props = {
   posture: Posture;
@@ -95,36 +95,40 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
       const t = window.setTimeout(() => {
         setLayerStabilityOpacity(0);
         setLayerPostureOpacity(1);
-      }, 650);
+      }, FADE_MS + HOLD_MS);
       timersRef.current.push(t);
       return () => clearTimers();
     }
 
     /**
      * Safari/WebKit + React 18 may skip CSS opacity transitions if batched updates never
-     * commit a “reset” frame. flushSync commits the baseline; rAF starts the crossfade on
-     * the next paint so `transition: opacity` runs reliably.
+     * commit a “reset” frame. flushSync commits the baseline; double rAF starts the crossfade
+     * after paint so `transition: opacity` runs reliably.
      */
     flushSync(() => {
       setLayerPostureOpacity(1);
       setLayerStabilityOpacity(0);
     });
 
-    let rafId = 0;
-    rafId = window.requestAnimationFrame(() => {
-      setLayerPostureOpacity(0);
-      setLayerStabilityOpacity(1);
+    let raf1 = 0;
+    let raf2 = 0;
+    raf1 = window.requestAnimationFrame(() => {
+      raf2 = window.requestAnimationFrame(() => {
+        setLayerPostureOpacity(0);
+        setLayerStabilityOpacity(1);
 
-      const tHold = window.setTimeout(() => {
-        setLayerPostureOpacity(1);
-        setLayerStabilityOpacity(0);
-      }, FADE_MS + HOLD_MS);
+        const tHold = window.setTimeout(() => {
+          setLayerPostureOpacity(1);
+          setLayerStabilityOpacity(0);
+        }, FADE_MS + HOLD_MS);
 
-      timersRef.current.push(tHold);
+        timersRef.current.push(tHold);
+      });
     });
 
     return () => {
-      window.cancelAnimationFrame(rafId);
+      window.cancelAnimationFrame(raf1);
+      window.cancelAnimationFrame(raf2);
       clearTimers();
     };
   }, [stabilityPulse, clearTimers]);
