@@ -1,38 +1,51 @@
-import { useEffect } from 'react';
-import type { Posture } from '../logic/postures';
+import { useEffect } from "react";
 
 export interface ConfirmationModalProps {
-  posture: Posture;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function ConfirmationModal({ posture, isOpen, onClose }: ConfirmationModalProps) {
+const TITLE_ID = "confirmation-modal-title";
+
+export function ConfirmationModal({ isOpen, onClose }: ConfirmationModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose} role="presentation">
+    <div
+      className="confirmation-modal-overlay"
+      onClick={onClose}
+      role="presentation"
+    >
       <div
-        className="modal-content"
+        className="confirmation-modal"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label={posture.title}
+        aria-labelledby={TITLE_ID}
       >
-        <h2 className="modal-title">{posture.title}</h2>
-        <p className="modal-message">{posture.message}</p>
-        <button type="button" className="modal-button" onClick={onClose}>
+        <h2 id={TITLE_ID} className="confirmation-modal__title">
+          Preferences saved
+        </h2>
+        <div className="confirmation-modal__body">
+          <p>Most of the time, you won’t hear from us. That’s intentional.</p>
+          <p>We’ll step in only when something meaningfully changes.</p>
+        </div>
+        <button
+          type="button"
+          className="button-primary confirmation-modal__button"
+          onClick={onClose}
+        >
           Got it
         </button>
       </div>

@@ -1,0 +1,333 @@
+{
+  "colors": {
+    "primary": {
+      "value": "#0055cc",
+      "variable": "Brand/Dark",
+      "usage": [
+        "Page title text (H1)",
+        "Button background",
+        "Card title text",
+        "Card border color"
+      ]
+    },
+    "text": {
+      "value": "#333333",
+      "variable": "Text/Primary",
+      "usage": [
+        "Body text",
+        "Section questions",
+        "Left/right slider labels",
+        "Card body text",
+        "Introduction/subhead text"
+      ]
+    },
+    "secondaryText": {
+      "value": "#333333",
+      "variable": "Text/Primary",
+      "opacity": "0.7-0.8",
+      "usage": [
+        "Secondary information text",
+        "Axis labels (if present)"
+      ]
+    },
+    "background": {
+      "value": "#ffffff",
+      "variable": "None (default white)",
+      "usage": [
+        "Page background",
+        "Body frame background"
+      ]
+    },
+    "divider": {
+      "value": "Not explicitly defined",
+      "usage": [
+        "No visible dividers in design"
+      ]
+    },
+    "cardFill": {
+      "value": "#e5f0ff",
+      "variable": "Surface/Brand",
+      "usage": [
+        "Recommendation card background"
+      ]
+    },
+    "cardBorder": {
+      "value": "#0055cc",
+      "variable": "Brand/Dark",
+      "usage": [
+        "Recommendation card border"
+      ]
+    },
+    "buttonText": {
+      "value": "#ffffff",
+      "variable": "Text/Inverse",
+      "usage": [
+        "Button text color"
+      ]
+    },
+    "infoIcon": {
+      "value": "#1461cc",
+      "variable": "Interface/Info",
+      "usage": [
+        "Info icon background"
+      ]
+    }
+  },
+  "typography": {
+    "h1": {
+      "family": "Figtree",
+      "style": "Regular",
+      "size": 24,
+      "weight": 400,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Header",
+      "usage": [
+        "Page title: 'We'll keep an eye on things'"
+      ]
+    },
+    "subhead": {
+      "family": "Figtree",
+      "style": "Regular",
+      "size": 16,
+      "weight": 400,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Body Regular",
+      "usage": [
+        "Introduction text: 'Tell us what matters...'"
+      ]
+    },
+    "sectionQuestion": {
+      "family": "Figtree",
+      "style": "Bold",
+      "size": 14,
+      "weight": 700,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Support Text Strong",
+      "usage": [
+        "Slider section questions (e.g., 'How often should we notify you?')"
+      ]
+    },
+    "leftRightLabels": {
+      "family": "Figtree",
+      "style": "Regular",
+      "size": 14,
+      "weight": 400,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Support Text Regular",
+      "usage": [
+        "Slider left/right labels (e.g., 'Don't bother me' / 'Keep me informed')"
+      ]
+    },
+    "cardTitle": {
+      "family": "Figtree",
+      "style": "Bold",
+      "size": 16,
+      "weight": 700,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Body Strong",
+      "color": "#0055cc",
+      "usage": [
+        "Recommendation card title text"
+      ]
+    },
+    "cardBody": {
+      "family": "Figtree",
+      "style": "Regular",
+      "size": 14,
+      "weight": 400,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Support Text Regular",
+      "usage": [
+        "Recommendation card body text",
+        "'Here's why' section",
+        "Reason chips"
+      ]
+    },
+    "buttonText": {
+      "family": "Figtree",
+      "style": "Bold",
+      "size": 16,
+      "weight": 700,
+      "lineHeight": 100,
+      "letterSpacing": 0,
+      "variable": "Body Strong",
+      "usage": [
+        "Save button text"
+      ]
+    },
+    "infoIconText": {
+      "family": "Figtree",
+      "style": "Regular",
+      "size": 12,
+      "weight": 400,
+      "lineHeight": 0,
+      "letterSpacing": 0,
+      "variable": "Footnote Strong",
+      "usage": [
+        "Info icon 'i' text"
+      ]
+    }
+  },
+  "spacing": {
+    "pagePadding": {
+      "value": 16,
+      "variable": "Spacing/200",
+      "unit": "px",
+      "usage": [
+        "Horizontal padding of Body frame (px: 16px)",
+        "Vertical padding top (pt: 40px = Spacing/500)"
+      ]
+    },
+    "pagePaddingTop": {
+      "value": 40,
+      "variable": "Spacing/500",
+      "unit": "px",
+      "usage": [
+        "Top padding of Body frame"
+      ]
+    },
+    "pagePaddingBottom": {
+      "value": 12,
+      "variable": "Spacing/150",
+      "unit": "px",
+      "usage": [
+        "Bottom padding of Body frame"
+      ]
+    },
+    "spacingBetweenSections": {
+      "value": 32,
+      "unit": "px",
+      "usage": [
+        "Gap between Intro Section and Slider Section (pt: 16px)",
+        "Gap between Slider Section and Results Section"
+      ]
+    },
+    "spacingWithinSection": {
+      "value": 16,
+      "variable": "Spacing/200",
+      "unit": "px",
+      "usage": [
+        "Gap within Intro Section (gap: 4px = Spacing/50)",
+        "Gap between slider rows in Slider Section (gap: 32px)",
+        "Gap within Results Section card (gap: 16px = Spacing/200)"
+      ]
+    },
+    "spacingTight": {
+      "value": 4,
+      "variable": "Spacing/50",
+      "unit": "px",
+      "usage": [
+        "Tight spacing within intro section",
+        "Gap between card title and body"
+      ]
+    },
+    "spacingMedium": {
+      "value": 8,
+      "variable": "Spacing/100",
+      "unit": "px",
+      "usage": [
+        "Medium spacing (if needed)"
+      ]
+    },
+    "cardPadding": {
+      "value": 16,
+      "variable": "Spacing/200",
+      "unit": "px",
+      "usage": [
+        "Padding inside recommendation card"
+      ]
+    }
+  },
+  "radii": {
+    "cardRadius": {
+      "value": 16,
+      "variable": "Radius/200",
+      "unit": "px",
+      "usage": [
+        "Recommendation card border radius"
+      ]
+    },
+    "buttonRadius": {
+      "value": 8,
+      "unit": "px",
+      "usage": [
+        "Save button border radius"
+      ]
+    },
+    "infoIconRadius": {
+      "value": 100,
+      "unit": "px",
+      "usage": [
+        "Info icon circular border radius (100px = fully rounded)"
+      ]
+    }
+  },
+  "slider": {
+    "trackHeight": {
+      "value": 24,
+      "unit": "px",
+      "usage": [
+        "Slider track height"
+      ]
+    },
+    "trackFillActive": {
+      "value": "#0055cc",
+      "variable": "Brand/Dark",
+      "usage": [
+        "Active/filled portion of slider track"
+      ]
+    },
+    "trackFillInactive": {
+      "value": "#e6e6e6",
+      "variable": "Surface/Secondary",
+      "usage": [
+        "Inactive/unfilled portion of slider track"
+      ]
+    },
+    "thumbSize": {
+      "value": "Not explicitly defined in metadata",
+      "estimated": "~16-20px",
+      "usage": [
+        "Slider thumb diameter (circular)"
+      ]
+    },
+    "thumbFill": {
+      "value": "#0055cc",
+      "variable": "Brand/Dark",
+      "usage": [
+        "Slider thumb fill color"
+      ]
+    },
+    "thumbBorder": {
+      "value": "Not explicitly defined",
+      "usage": [
+        "Slider thumb border (if any)"
+      ]
+    },
+    "thumbShadow": {
+      "value": "Not explicitly defined",
+      "usage": [
+        "Slider thumb shadow/elevation (if any)"
+      ]
+    }
+  },
+  "effects": {
+    "elevation50": {
+      "type": "INNER_SHADOW",
+      "color": "#0000001A",
+      "offset": [0, 1],
+      "radius": 2,
+      "spread": 1,
+      "variable": "Elevation -50",
+      "usage": [
+        "Potential elevation effect (if applied)"
+      ]
+    }
+  }
+}

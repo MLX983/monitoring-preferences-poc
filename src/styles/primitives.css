@@ -1,0 +1,512 @@
+/* src/styles/primitives.css */
+
+/* ---------------------------------------------
+   Page + layout primitives
+---------------------------------------------- */
+
+.page {
+    background: var(--color-background, #ffffff);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .page__inner {
+    width: 100%;
+    max-width: var(--page-max-width, 560px);
+    min-width: 0;
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding: var(--page-padding-top, clamp(24px, 6vw, 40px))
+             var(--page-padding-inline, clamp(14px, 5vw, 30px))
+             var(--page-padding-bottom, clamp(8px, 2.5vw, 12px));
+  }
+
+  .page-cta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .button-primary--save-embed {
+    width: var(--cta-save-max-width, min(100%, 280px));
+    max-width: 100%;
+    min-width: min(160px, 100%);
+    box-sizing: border-box;
+  }
+  
+  .stack {
+    display: grid;
+    gap: var(--spacing-between-sections, 32px);
+  }
+  
+  .stack-tight {
+    display: grid;
+    gap: var(--space-title-to-intro, 4px);
+  }
+  
+  .stack-medium {
+    display: grid;
+    gap: var(--spacing-medium, 8px);
+  }
+
+  .results-card-helper {
+    font-family: var(--font-family);
+    font-size: var(--font-support-text-size, 14px);
+    font-weight: 400;
+    line-height: var(--font-support-text-line-height, 1.4);
+    letter-spacing: 0;
+    color: var(--color-text, #333333);
+    margin: 0;
+    margin-bottom: var(--space-explanatory-to-status-card, 16px);
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  
+  /* ---------------------------------------------
+     Typography primitives
+  ---------------------------------------------- */
+  
+  .h1 {
+    font-family: var(--font-h1-family, var(--font-family));
+    font-size: var(--font-h1-size, 24px);
+    font-weight: var(--font-h1-weight, 400);
+    line-height: var(--font-h1-line-height, 1);
+    letter-spacing: var(--font-h1-letter-spacing, 0);
+    color: var(--color-primary, #0055cc);
+    margin: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  
+  .subhead {
+    font-family: var(--font-subhead-family, var(--font-family));
+    font-size: var(--font-subhead-size, 16px);
+    font-weight: var(--font-subhead-weight, 400);
+    line-height: var(--font-subhead-line-height, 1.4);
+    letter-spacing: var(--font-subhead-letter-spacing, 0);
+    color: var(--color-text, #333333);
+    opacity: var(--color-secondary-text-opacity, 0.65);
+    margin: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  
+  /* ---------------------------------------------
+     Section + row primitives
+  ---------------------------------------------- */
+  
+  .section {
+    display: grid;
+    gap: 0;
+    padding: 0;
+    min-width: 0;
+    max-width: 100%;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-medium, 8px);
+    margin-bottom: var(--space-question-to-helper, 8px);
+  }
+  
+  .section-title {
+    font-family: var(--font-section-question-family, var(--font-family));
+    font-size: var(--font-section-question-size, 14px);
+    font-weight: var(--font-section-question-weight, 700);
+    line-height: var(--font-section-question-line-height, 1);
+    letter-spacing: var(--font-section-question-letter-spacing, 0);
+    color: var(--color-text, #333333);
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  
+  
+  .section-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: var(--radius-info-icon, 999px);
+    background-color: var(--color-info-icon, #1461cc);
+    color: var(--color-button-text, #ffffff);
+  
+    font-family: var(--font-info-icon-family, var(--font-family));
+    font-size: var(--font-info-icon-size, 11px);
+    font-weight: 700;
+    line-height: 1;
+  
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  
+  .section-info-icon:hover {
+    filter: brightness(0.95);
+  }
+  
+  .section-info-icon:focus-visible {
+    outline: 2px solid var(--color-primary, #0055cc);
+    outline-offset: 2px;
+  }
+  
+  /* Left/right labels under slider */
+  .range-labels {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--spacing-medium, 8px);
+    row-gap: 6px;
+    margin-top: var(--space-slider-to-labels, 0px);
+  
+    font-family: var(--font-labels-family, var(--font-family));
+    font-size: var(--font-labels-size, 14px);
+    font-weight: var(--font-labels-weight, 400);
+    line-height: var(--font-labels-line-height, 1.25);
+    letter-spacing: var(--font-labels-letter-spacing, 0);
+  
+    color: var(--color-text, #333333);
+    opacity: 0.7;
+  }
+
+  .range-labels span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  .range-labels span:last-child {
+    text-align: right;
+  }
+  
+  /* ---------------------------------------------
+     Info accordion panel
+  ---------------------------------------------- */
+  
+  .info-panel {
+    padding: 0;
+    margin-bottom: var(--space-helper-to-slider, 8px);
+    display: block;
+    color: var(--color-text, #333333);
+  }
+  
+  .info-panel-title {
+    font-family: var(--font-card-body-family, var(--font-family));
+    font-size: var(--font-card-body-size, 14px);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-text, #333333);
+    margin: 0 0 4px 0;
+  }
+  
+  .info-panel-body {
+    font-family: var(--font-card-body-family, var(--font-family));
+    font-size: var(--font-card-body-size, 14px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--color-text, #333333);
+    opacity: 0.85;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+  
+  /* ---------------------------------------------
+     Card primitives
+  ---------------------------------------------- */
+  
+  .card {
+    border: 1px solid var(--color-card-border, #0055cc);
+    border-radius: var(--radius-card, 16px);
+    padding: var(--spacing-card-padding, 16px);
+    background-color: var(--color-card-fill, #e5f0ff);
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .card-body {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  
+  .card-title {
+    font-family: var(--font-card-title-family, var(--font-family));
+    font-size: var(--font-card-title-size, 16px);
+    font-weight: var(--font-card-title-weight, 700);
+    line-height: var(--font-card-title-line-height, 1.2);
+    letter-spacing: var(--font-card-title-letter-spacing, 0);
+    color: var(--color-primary, #0055cc);
+    margin: 0 0 var(--spacing-medium, 8px) 0;
+  }
+
+  /* Status card title: in-flow + overlay for stability feedback (no layout jump) */
+  .card-title-wrap {
+    position: relative;
+    margin: 0 0 var(--spacing-medium, 8px) 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .card-title-layer {
+    font-family: var(--font-card-title-family, var(--font-family));
+    font-size: var(--font-card-title-size, 16px);
+    font-weight: var(--font-card-title-weight, 700);
+    line-height: var(--font-card-title-line-height, 1.2);
+    letter-spacing: var(--font-card-title-letter-spacing, 0);
+    color: var(--color-primary, #0055cc);
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    /* Keep in sync with ResultsCard FADE_*_MS (single duration matches both crossfades) */
+    transition: opacity 0.2s ease;
+  }
+
+  .card-title-layer--overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-title-layer {
+      transition: none;
+    }
+  }
+  
+  .card-why-header {
+    font-family: var(--font-card-body-family, var(--font-family));
+    font-size: var(--font-card-body-size, 14px);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-text, #333333);
+    margin: 0 0 var(--spacing-tight, 4px) 0;
+  }
+  
+  .card-reasons {
+    display: grid;
+    gap: var(--spacing-tight, 4px);
+    margin-top: var(--spacing-tight, 4px);
+  }
+  
+  .card-reason {
+    font-family: var(--font-card-body-family, var(--font-family));
+    font-size: var(--font-card-body-size, 14px);
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--color-text, #333333);
+    margin: 0;
+  }
+  
+  /* ---------------------------------------------
+     Confirmation modal (Figma-aligned)
+  ---------------------------------------------- */
+
+  .confirmation-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: clamp(12px, 4vw, 24px);
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .confirmation-modal {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: min(var(--modal-max-width, 520px), 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--modal-section-gap, 24px);
+    padding: var(--modal-padding, 24px);
+    border-radius: var(--radius-card, 16px);
+    background-color: var(--color-background, #ffffff);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+  }
+
+  .confirmation-modal__title {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: left;
+    font-family: var(--font-h1-family, var(--font-family));
+    font-size: var(--font-h1-size, 24px);
+    font-weight: var(--font-h1-weight, 400);
+    line-height: var(--font-h1-line-height, 1);
+    letter-spacing: var(--font-h1-letter-spacing, 0);
+    color: var(--color-primary, #0055cc);
+  }
+
+  .confirmation-modal__body {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-family: var(--font-subhead-family, var(--font-family));
+    font-size: var(--font-subhead-size, 16px);
+    font-weight: var(--font-subhead-weight, 400);
+    line-height: var(--font-subhead-line-height, 1.25);
+    letter-spacing: var(--font-subhead-letter-spacing, 0);
+    color: var(--color-text, #333333);
+    text-align: left;
+  }
+
+  .confirmation-modal__body p {
+    margin: 0;
+  }
+
+  .confirmation-modal__button.button-primary {
+    flex-shrink: 0;
+    width: var(--cta-width, 160px);
+    min-width: var(--cta-width, 160px);
+    max-width: var(--cta-width, 160px);
+  }
+
+  /* ---------------------------------------------
+     Button primary
+  ---------------------------------------------- */
+  
+  .button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--cta-height, 35px);
+    min-width: var(--cta-width, 160px);
+    padding: 0 16px;
+    border-radius: var(--cta-radius, 8px);
+    border: none;
+    background-color: var(--color-primary, #0055cc);
+    color: var(--color-button-text, #ffffff);
+  
+    font-family: var(--font-button-family, var(--font-family));
+    font-size: var(--font-button-size, 16px);
+    font-weight: var(--font-button-weight, 700);
+    line-height: var(--font-button-line-height, 1);
+    letter-spacing: var(--font-button-letter-spacing, 0);
+  
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  
+  .button-primary:hover {
+    opacity: 0.92;
+  }
+  
+  .button-primary:active {
+    opacity: 0.85;
+  }
+  
+  .button-primary:focus-visible {
+    outline: 2px solid var(--color-primary, #0055cc);
+    outline-offset: 2px;
+  }
+  
+  /* ---------------------------------------------
+     Slider skin (assumes input[type="range"] gets class="slider")
+     NOTE: If your Slider component isn't a native range input,
+     you'll need to adapt selectors to your internal DOM.
+  ---------------------------------------------- */
+  
+  .slider {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    margin: 6px 0;
+    padding: 0;
+    height: 20px;
+    touch-action: manipulation;
+  }
+  
+  .slider:focus {
+    outline: none;
+  }
+  
+  .slider::-webkit-slider-runnable-track {
+    height: var(--slider-track-height, 6px);
+    background: linear-gradient(
+      to right,
+      var(--slider-track-fill-active, #e5f0ff) 0%,
+      var(--slider-track-fill-active, #e5f0ff) var(--slider-pct, 0%),
+      var(--slider-track-fill-inactive, #e8e8e8) var(--slider-pct, 0%),
+      var(--slider-track-fill-inactive, #e8e8e8) 100%
+    );
+    border-radius: 999px;
+    box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--slider-thumb-size, 20px);
+    height: var(--slider-thumb-size, 20px);
+    border-radius: 999px;
+    background: var(--slider-thumb-fill, #0055cc);
+    border: var(--slider-thumb-border, none);
+    box-shadow: var(--slider-thumb-shadow, 0 1px 3px rgba(0, 0, 0, 0.15));
+    cursor: grab;
+  
+    /* vertically center thumb on track */
+    margin-top: calc((var(--slider-thumb-size, 20px) - var(--slider-track-height, 6px)) / -2);
+  }
+  
+  .slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+  }
+  
+  /* Firefox slider styles */
+  .slider::-moz-range-track {
+    height: var(--slider-track-height, 6px);
+    background: linear-gradient(
+      to right,
+      var(--slider-track-fill-active, #e5f0ff) 0%,
+      var(--slider-track-fill-active, #e5f0ff) var(--slider-pct, 0%),
+      var(--slider-track-fill-inactive, #e8e8e8) var(--slider-pct, 0%),
+      var(--slider-track-fill-inactive, #e8e8e8) 100%
+    );
+    border-radius: 999px;
+    border: none;
+    box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .slider::-moz-range-thumb {
+    width: var(--slider-thumb-size, 20px);
+    height: var(--slider-thumb-size, 20px);
+    border-radius: 999px;
+    background: var(--slider-thumb-fill, #0055cc);
+    border: none;
+    box-shadow: var(--slider-thumb-shadow, 0 1px 3px rgba(0, 0, 0, 0.15));
+    cursor: grab;
+  }
+  
+  .slider::-moz-range-thumb:active {
+    cursor: grabbing;
+  }
+  
+  .slider:focus-visible::-webkit-slider-thumb {
+    outline: 3px solid color-mix(in srgb, var(--color-primary, #0055cc) 35%, white);
+    outline-offset: 3px;
+  }
+  

@@ -1,76 +1,140 @@
-export interface SliderProps {
-    title: string;
-    leftLabel: string;
-    rightLabel: string;
-    value: number; // 0-4
-    onChange: (value: number) => void;
-    supportText: string;
-  
-    // Controlled accordion state (managed by parent so multiple can be open)
-    isInfoOpen: boolean;
-    onToggleInfo: () => void;
+import * as React from "react";
+
+const VALUE_ADJUST_KEYS = new Set([
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+  "Home",
+  "End",
+  "PageUp",
+  "PageDown",
+]);
+
+type Props = {
+  value: number;
+  onChange: (next: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  className?: string;
+  /** Fires once when the user begins a drag or keyboard adjustment. */
+  onAdjustmentSessionStart?: () => void;
+  /** Fires when the drag/release or keyboard adjustment completes. */
+  onAdjustmentSessionEnd?: () => void;
+};
+
+export default function Slider({
+  value,
+  onChange,
+  min = 0,
+  max = 100,
+  step = 1,
+  className = "",
+  onAdjustmentSessionStart,
+  onAdjustmentSessionEnd,
+}: Props) {
+  const percentage = ((value - min) / (max - min)) * 100;
+  const keyboardSessionRef = React.useRef(false);
+  const pointerActiveRef = React.useRef(false);
+  const pointerSessionCleanupRef = React.useRef<(() => void) | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      pointerSessionCleanupRef.current?.();
+      pointerSessionCleanupRef.current = null;
+      if (pointerActiveRef.current || keyboardSessionRef.current) {
+        pointerActiveRef.current = false;
+        keyboardSessionRef.current = false;
+        onAdjustmentSessionEnd?.();
+      }
+    };
+  }, [onAdjustmentSessionEnd]);
+
+  function beginPointerSession(event: React.PointerEvent<HTMLInputElement>) {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    if (keyboardSessionRef.current) {
+      keyboardSessionRef.current = false;
+      onAdjustmentSessionEnd?.();
+    }
+
+    pointerActiveRef.current = true;
+    onAdjustmentSessionStart?.();
+
+    const pointerId = event.pointerId;
+    const el = event.currentTarget;
+    try {
+      el.setPointerCapture(pointerId);
+    } catch {
+      /* older engines */
+    }
+
+    const handleUp = (ev: PointerEvent) => {
+      if (ev.pointerId !== pointerId) return;
+      try {
+        if (el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
+      } catch {
+        /* ignore */
+      }
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+      pointerSessionCleanupRef.current = null;
+      pointerActiveRef.current = false;
+      onAdjustmentSessionEnd?.();
+    };
+
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
+    pointerSessionCleanupRef.current = () => {
+      try {
+        if (el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
+      } catch {
+        /* ignore */
+      }
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+    };
   }
-  
-  export function Slider({
-    title,
-    leftLabel,
-    rightLabel,
-    value,
-    onChange,
-    supportText,
-    isInfoOpen,
-    onToggleInfo,
-  }: SliderProps) {
-    return (
-      <div className="slider-container">
-        <div className="slider-header">
-          <h3 className="slider-title">{title}</h3>
-  
-          <button
-            type="button"
-            className="info-button"
-            onClick={onToggleInfo}
-            aria-label="Toggle info"
-            aria-expanded={isInfoOpen}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" fill="none" />
-              <path d="M8 6V8M8 10H8.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </button>
-        </div>
-  
-        {isInfoOpen && (
-          <div className="slider-info-accordion">
-            <p className="slider-support-text">{supportText}</p>
-          </div>
-        )}
-  
-        <div className="slider-labels">
-          <span className="slider-label-left">{leftLabel}</span>
-          <span className="slider-label-right">{rightLabel}</span>
-        </div>
-  
-        <div className="slider-track" role="group" aria-label={title}>
-          {[0, 1, 2, 3, 4].map((step) => (
-            <button
-              key={step}
-              type="button"
-              className={`slider-step ${value === step ? 'active' : ''}`}
-              onClick={() => onChange(step)}
-              aria-label={`Set to step ${step + 1}`}
-              aria-pressed={value === step}
-            />
-          ))}
-        </div>
-      </div>
-    );
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (!VALUE_ADJUST_KEYS.has(event.key)) return;
+    if (event.repeat) return;
+    if (pointerActiveRef.current) return;
+    keyboardSessionRef.current = true;
+    onAdjustmentSessionStart?.();
   }
-  
+
+  function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (!VALUE_ADJUST_KEYS.has(event.key)) return;
+    if (!keyboardSessionRef.current) return;
+    keyboardSessionRef.current = false;
+    onAdjustmentSessionEnd?.();
+  }
+
+  function handleBlur() {
+    if (!keyboardSessionRef.current) return;
+    keyboardSessionRef.current = false;
+    onAdjustmentSessionEnd?.();
+  }
+
+  return (
+    <input
+      type="range"
+      className={["slider", className].filter(Boolean).join(" ")}
+      style={{ "--slider-pct": `${percentage}%` } as React.CSSProperties}
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(e) => onChange(Number(e.target.value))}
+      onPointerDown={beginPointerSession}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      onBlur={handleBlur}
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={value}
+    />
+  );
+}

@@ -1,0 +1,145 @@
+:root {
+  /* Colors */
+  --color-primary: #0055cc;
+  --color-text: #333333;
+  --color-secondary-text: #333333;
+  --color-secondary-text-opacity: 0.65;
+  --color-background: #ffffff;
+  --color-divider: rgba(0, 0, 0, 0.1);
+  --color-card-fill: #e5f0ff;
+  --color-card-border: #0055cc;
+  --color-card-border-subtle: rgba(0, 85, 204, 0.3);
+  --color-chip-border: rgba(0, 85, 204, 0.25);
+  --color-button-text: #ffffff;
+  --color-info-icon: #1461cc;
+
+  /* Typography - Font Family */
+  --font-family: "Figtree", system-ui, -apple-system, sans-serif;
+
+  /* Typography - H1 */
+  --font-h1-family: var(--font-family);
+  --font-h1-size: 24px;
+  --font-h1-weight: 400;
+  --font-h1-line-height: 1;
+  --font-h1-letter-spacing: 0;
+
+  /* Typography - Subhead */
+  --font-subhead-family: var(--font-family);
+  --font-subhead-size: 16px;
+  --font-subhead-weight: 400;
+  --font-subhead-line-height: 1.25;
+  --font-subhead-letter-spacing: 0;
+
+  /* Typography - Section Question */
+  --font-section-question-family: var(--font-family);
+  --font-section-question-size: 14px;
+  --font-section-question-weight: 700;
+  --font-section-question-line-height: 1;
+  --font-section-question-letter-spacing: 0;
+
+  /* Typography - Left/Right Labels */
+  --font-labels-family: var(--font-family);
+  --font-labels-size: 14px;
+  --font-labels-weight: 400;
+  --font-labels-line-height: 1;
+  --font-labels-letter-spacing: 0;
+
+  /* Typography - Card Title */
+  --font-card-title-family: var(--font-family);
+  --font-card-title-size: 16px;
+  --font-card-title-weight: 700;
+  --font-card-title-line-height: 1;
+  --font-card-title-letter-spacing: 0;
+
+  /* Typography - Card Body */
+  --font-card-body-family: var(--font-family);
+  --font-card-body-size: 14px;
+  --font-card-body-weight: 400;
+  --font-card-body-line-height: 1;
+  --font-card-body-letter-spacing: 0;
+
+  /* Typography - Button Text */
+  --font-button-family: var(--font-family);
+  --font-button-size: 16px;
+  --font-button-weight: 700;
+  --font-button-line-height: 1;
+  --font-button-letter-spacing: 0;
+
+  /* Typography - Info Icon Text */
+  --font-info-icon-family: var(--font-family);
+  --font-info-icon-size: 12px;
+  --font-info-icon-weight: 400;
+  --font-info-icon-line-height: 0;
+  --font-info-icon-letter-spacing: 0;
+
+  /* Page shell — fluid for narrow iframes (Wix embed); % / clamp, not vw-only */
+  --page-max-width: 560px;
+  --page-padding-inline: clamp(14px, 5vw, 30px);
+  --page-padding-top: clamp(24px, 6vw, 40px);
+  --page-padding-bottom: clamp(8px, 2.5vw, 12px);
+
+  /* Legacy aliases (embed-safe defaults) */
+  --spacing-page-padding: var(--page-padding-inline);
+  --spacing-page-padding-top: var(--page-padding-top);
+  --spacing-page-padding-bottom: var(--page-padding-bottom);
+
+  /* Primary Save CTA when embedded */
+  --cta-save-max-width: min(100%, 280px);
+  
+  /* Header spacing */
+  --space-title-to-intro: 4px;
+  --space-intro-to-first-block: 16px;
+  
+  /* Slider section spacing */
+  --space-block-gap: 32px;
+  --space-question-to-helper: 8px;
+  --space-helper-to-slider: 8px;
+  --space-slider-to-labels: 0px;
+  
+  /* Card and CTA spacing */
+  --space-card-to-cta: 16px;
+  /* Explanatory text section (Figma: above/below explanatory frame) */
+  --space-sliders-to-explanatory-section: 32px;
+  --space-explanatory-to-status-card: 16px;
+
+  /* Support / explanatory text (e.g. above status card) */
+  --font-support-text-size: 14px;
+  --font-support-text-line-height: 1.4;
+  
+  /* CTA dimensions */
+  --cta-height: 35px;
+  --cta-width: 160px;
+  --cta-radius: 8px;
+  
+  /* Legacy spacing (kept for compatibility) */
+  --spacing-header-to-content: 40px;
+  --spacing-between-sections: 32px;
+  --spacing-slider-row-gap: 8px;
+  --spacing-within-section: 12px;
+  --spacing-tight: 4px;
+  --spacing-medium: 8px;
+  --spacing-card-padding: 16px;
+  --spacing-card-to-footer: 24px;
+
+  /* Confirmation modal (Figma: Confirmation Modal frame) */
+  --modal-padding: clamp(16px, 4vw, 24px);
+  --modal-section-gap: 24px;
+  --modal-max-width: 520px;
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-button: 8px;
+  --radius-info-icon: 100px;
+
+  /* Shadows */
+  --shadow-elevation-50: inset 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+
+  /* Slider */
+  --slider-track-height: 6px;
+  --slider-track-fill-active: #e5f0ff;
+  --slider-track-fill-inactive: #e8e8e8;
+  --slider-thumb-size: 20px;
+  --slider-thumb-fill: #0055cc;
+  --slider-thumb-border: none;
+  --slider-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}

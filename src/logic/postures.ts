@@ -1,3 +1,11 @@
+export type PostureId = "quiet" | "regular" | "early-warnings" | "high-touch";
+
+export type Posture = {
+  id: PostureId;
+  title: string;
+  message: string;
+};
+
 export const postures: Record<PostureId, Posture> = {
     quiet: {
       id: 'quiet',
