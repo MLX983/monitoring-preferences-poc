@@ -13,37 +13,37 @@ export interface Strategy {
 export const strategies: Record<StrategyId, Strategy> = {
   S1: {
     id: 'S1',
-    primaryLine: "We’ll send a monthly overview so you can review it all at once.",
-    reasonChips: ['Low interruptions', 'Review monthly'],
+    primaryLine: "We'll send one monthly update and stay quiet the rest of the time.",
+    reasonChips: ['You want fewer alerts', 'A monthly check-in is enough'],
   },
   S2: {
     id: 'S2',
-    primaryLine: "We’ll check in weekly with a quick recap of what changed.",
-    reasonChips: ['Regular updates', 'Steady cadence'],
+    primaryLine: "We'll send a weekly recap so you can keep an eye on things without daily alerts.",
+    reasonChips: ['You want regular updates', "You don't need daily alerts"],
   },
   S3: {
     id: 'S3',
-    primaryLine: "We’ll ignore everyday ups and downs and speak up when patterns change.",
-    reasonChips: ['Avoid noise', 'Changes matter'],
+    primaryLine: "We'll stay quiet when things look normal and let you know when something changes.",
+    reasonChips: ['You want fewer alerts', 'You still want to know when something looks different'],
   },
   S4: {
     id: 'S4',
-    primaryLine: "We’ll warn you early when costs may run higher than usual.",
-    reasonChips: ['No surprises', 'Early action'],
+    primaryLine: "We'll warn you early if your bill looks like it may be higher than usual.",
+    reasonChips: ["You don't want surprise charges", 'You want time to make changes'],
   },
   S5: {
     id: 'S5',
-    primaryLine: "We’ll watch individual devices and flag imbalances early.",
-    reasonChips: ['Watch devices', 'Spot imbalances'],
+    primaryLine: "We'll check each device so one line doesn't use much more than the others.",
+    reasonChips: ['You want us to watch each device', 'Uneven use matters to you'],
   },
   S6: {
     id: 'S6',
-    primaryLine: "We’ll stay quiet and only reach out when something truly needs attention.",
-    reasonChips: ['Don’t bother me', 'Only essentials'],
+    primaryLine: "We'll only alert you when we're confident something needs your attention.",
+    reasonChips: ['You want fewer interruptions', 'You only want alerts when they really matter'],
   },
   S7: {
     id: 'S7',
-    primaryLine: "We’ll check in early and often so you stay in the loop.",
-    reasonChips: ['Keep me informed', 'Step in early'],
+    primaryLine: "We'll check in sooner so you have more time to make changes.",
+    reasonChips: ['You want early warnings', 'You want more help staying ahead'],
   },
 };

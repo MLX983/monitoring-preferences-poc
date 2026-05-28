@@ -1,20 +1,20 @@
 :root {
   /* Colors */
-  --color-primary: #0055cc;
+  --color-primary: #0011cc;
   --color-text: #333333;
   --color-secondary-text: #333333;
   --color-secondary-text-opacity: 0.65;
   --color-background: #ffffff;
   --color-divider: rgba(0, 0, 0, 0.1);
-  --color-card-fill: #e5f0ff;
-  --color-card-border: #0055cc;
-  --color-card-border-subtle: rgba(0, 85, 204, 0.3);
-  --color-chip-border: rgba(0, 85, 204, 0.25);
+  --color-card-fill: #f2f4ff;
+  --color-card-border: #0011cc;
+  --color-card-border-subtle: rgba(0, 17, 204, 0.3);
+  --color-chip-border: rgba(0, 17, 204, 0.25);
   --color-button-text: #ffffff;
-  --color-info-icon: #1461cc;
+  --color-info-icon: #0011cc;
 
   /* Typography - Font Family */
-  --font-family: "Figtree", system-ui, -apple-system, sans-serif;
+  --font-family: "Nunito Sans", system-ui, -apple-system, sans-serif;
 
   /* Typography - H1 */
   --font-h1-family: var(--font-family);
@@ -75,7 +75,7 @@
   /* Page shell — fluid for narrow iframes (Wix embed); % / clamp, not vw-only */
   --page-max-width: 560px;
   --page-padding-inline: clamp(14px, 5vw, 30px);
-  --page-padding-top: clamp(24px, 6vw, 40px);
+  --page-padding-top: clamp(24px, 6vw, 32px);
   --page-padding-bottom: clamp(8px, 2.5vw, 12px);
 
   /* Legacy aliases (embed-safe defaults) */
@@ -84,10 +84,10 @@
   --spacing-page-padding-bottom: var(--page-padding-bottom);
 
   /* Primary Save CTA when embedded */
-  --cta-save-max-width: min(100%, 280px);
+  --cta-save-max-width: var(--cta-width, 160px);
   
   /* Header spacing */
-  --space-title-to-intro: 4px;
+  --space-title-to-intro: 8px;
   --space-intro-to-first-block: 16px;
   
   /* Slider section spacing */
@@ -112,7 +112,7 @@
   --cta-radius: 8px;
   
   /* Legacy spacing (kept for compatibility) */
-  --spacing-header-to-content: 40px;
+  --spacing-header-to-content: 32px;
   --spacing-between-sections: 32px;
   --spacing-slider-row-gap: 8px;
   --spacing-within-section: 12px;
@@ -139,7 +139,7 @@
   --slider-track-fill-active: #e5f0ff;
   --slider-track-fill-inactive: #e8e8e8;
   --slider-thumb-size: 20px;
-  --slider-thumb-fill: #0055cc;
+  --slider-thumb-fill: #0011cc;
   --slider-thumb-border: none;
   --slider-thumb-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }

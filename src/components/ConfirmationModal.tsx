@@ -1,13 +1,15 @@
 import { useEffect } from "react";
+import { postures, type PostureId } from "../logic/postures";
 
 export interface ConfirmationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  postureId: PostureId;
 }
 
 const TITLE_ID = "confirmation-modal-title";
 
-export function ConfirmationModal({ isOpen, onClose }: ConfirmationModalProps) {
+export function ConfirmationModal({ isOpen, onClose, postureId }: ConfirmationModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -20,6 +22,8 @@ export function ConfirmationModal({ isOpen, onClose }: ConfirmationModalProps) {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
+  const { bodyParagraphs } = postures[postureId];
 
   return (
     <div
@@ -38,8 +42,8 @@ export function ConfirmationModal({ isOpen, onClose }: ConfirmationModalProps) {
           Preferences saved
         </h2>
         <div className="confirmation-modal__body">
-          <p>Most of the time, you won’t hear from us. That’s intentional.</p>
-          <p>We’ll step in only when something meaningfully changes.</p>
+          <p>{bodyParagraphs[0]}</p>
+          <p>{bodyParagraphs[1]}</p>
         </div>
         <button
           type="button"

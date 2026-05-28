@@ -1,47 +1,14 @@
 import * as React from "react";
 import { flushSync } from "react-dom";
 import type { Posture, PostureId } from "../logic/computeRecommendation";
-
-/**
- * Figma-fidelity copy mapping.
- * We keep computeRecommendation as the logic source of truth (id),
- * and map to the exact UI strings here.
- */
-const COPY_BY_POSTURE: Record<
-  Posture["id"],
-  {
-    title: string; // top blue headline inside the card
-    whyLabel: string;
-    reasons: [string, string];
-  }
-> = {
-  fast_filtered: {
-    title: "We'll interrupt quickly, but only when it really matters.",
-    whyLabel: "Here's why",
-    reasons: ["High urgency", "Low tolerance for surprises"],
-  },
-  fast_noisy: {
-    title: "We'll keep you informed quickly, even if it's a bit noisy at first.",
-    whyLabel: "Here's why",
-    reasons: ["High urgency", "Higher tolerance for noise"],
-  },
-  digest_review: {
-    title: "We'll summarize routine variability and escalate only when patterns shift.",
-    whyLabel: "Here's why",
-    reasons: ["Lower urgency", "Preference for review over interruptions"],
-  },
-  manual_check: {
-    title: "We'll stay quiet during normal variability and escalate when patterns shift.",
-    whyLabel: "Here's why",
-    reasons: ["Low interruption preference", "High sensitivity to surprise charges"],
-  },
-};
+import { strategies } from "../logic/strategies";
+import { STRATEGY_BY_COMPUTE_POSTURE } from "../content/monitoringCopy";
 
 const STABILITY_MESSAGE_BY_POSTURE: Record<PostureId, string> = {
-  fast_filtered: "Still filtering for high-confidence alerts",
-  fast_noisy: "Still surfacing early warning signs",
-  digest_review: "Still saving most updates for review",
-  manual_check: "Still keeping notifications sparse",
+  fast_filtered: "Still only alerting when it matters",
+  fast_noisy: "Still set to warn you early",
+  digest_review: "Still set for weekly updates",
+  manual_check: "Still keeping alerts low",
 };
 
 /** Match `.card-title-layer` transition duration in primitives.css */
@@ -57,12 +24,11 @@ type Props = {
 };
 
 export default function ResultsCard({ posture, stabilityPulse }: Props) {
-  const copy = COPY_BY_POSTURE[posture.id];
+  const strategy = strategies[STRATEGY_BY_COMPUTE_POSTURE[posture.id]];
 
-  const headline = copy?.title ?? posture.title;
-  const whyLabel = copy?.whyLabel ?? "Here's why";
-
-  const reasons: [string, string] = copy?.reasons ?? posture.reasons;
+  const headline = strategy.primaryLine;
+  const whyLabel = "Here's why";
+  const reasons = strategy.reasonChips;
 
   const stabilityLine = STABILITY_MESSAGE_BY_POSTURE[posture.id];
 
@@ -171,10 +137,10 @@ export default function ResultsCard({ posture, stabilityPulse }: Props) {
           {whyLabel}
         </div>
 
-        <div style={{ display: "grid", gap: "var(--spacing-tight, 4px)" }}>
-          <div>{reasons[0]}</div>
-          <div>{reasons[1]}</div>
-        </div>
+        <ul style={{ margin: 0, paddingInlineStart: "24px" }}>
+          <li>{reasons[0]}</li>
+          <li>{reasons[1]}</li>
+        </ul>
       </div>
     </div>
   );

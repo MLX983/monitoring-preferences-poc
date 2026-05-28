@@ -135,15 +135,15 @@
     width: 18px;
     height: 18px;
     border-radius: var(--radius-info-icon, 999px);
-    background-color: var(--color-info-icon, #1461cc);
-    color: var(--color-button-text, #ffffff);
+    background-color: var(--color-background, #ffffff);
+    color: var(--color-info-icon, #0011cc);
   
     font-family: var(--font-info-icon-family, var(--font-family));
     font-size: var(--font-info-icon-size, 11px);
     font-weight: 700;
     line-height: 1;
   
-    border: none;
+    border: 1px solid var(--color-info-icon, #0011cc);
     cursor: pointer;
     flex-shrink: 0;
     margin-left: auto;

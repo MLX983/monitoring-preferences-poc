@@ -10,6 +10,7 @@ import {
   type SliderKey,
   type PostureId,
 } from "../logic/computeRecommendation";
+import { MODAL_POSTURE_BY_COMPUTE_POSTURE } from "../content/monitoringCopy";
 
 type SliderCopy = {
   key: SliderKey;
@@ -28,57 +29,57 @@ const SLIDERS: SliderCopy[] = [
     key: "signal",
     question: "How often should we notify you?",
     helperParagraphs: [
-      "Some people want updates only when something really changes, others want regular check-ins.",
-      "This helps us decide how often to speak up.",
+      "Some people only want alerts when something important changes. Others want regular updates.",
+      "This helps us choose how often to check in.",
     ],
     infoParagraphs: [
-      "Some people want updates only when something really changes, others want regular check-ins.",
-      "This helps us decide how often to speak up.",
+      "Some people only want alerts when something important changes. Others want regular updates.",
+      "This helps us choose how often to check in.",
     ],
-    leftLabel: "Don't bother me",
-    rightLabel: "Keep me informed",
+    leftLabel: "Fewer alerts",
+    rightLabel: "More updates",
   },
   {
     key: "tolerance",
     question: "How much do surprise charges bother you?",
     helperParagraphs: [
-      "If your bill looks like it might be higher than usual, should we warn you ahead of time?",
-      "This helps us decide when to step in early.",
+      "Tell us how early you want to know if your bill may be higher than usual.",
+      "This helps us decide when to warn you.",
     ],
     infoParagraphs: [
-      "If your bill looks like it might be higher than usual, should we warn you ahead of time?",
-      "This helps us decide when to step in early.",
+      "Tell us how early you want to know if your bill may be higher than usual.",
+      "This helps us decide when to warn you.",
     ],
-    leftLabel: "Surprises are fine",
-    rightLabel: "No surprises, ever",
+    leftLabel: "Small changes are okay",
+    rightLabel: "Warn me early",
   },
   {
     key: "control",
     question: "How much should we handle for you?",
     helperParagraphs: [
-      "Some people want to review things before acting, others are happy to let the system take care of it.",
-      "This helps us choose between suggestions and automatic actions.",
+      "Some people want to review things first. Others want us to handle more automatically.",
+      "This helps us decide when to ask and when to act.",
     ],
     infoParagraphs: [
-      "Some people want to review things before acting, others are happy to let the system take care of it.",
-      "This helps us choose between suggestions and automatic actions.",
+      "Some people want to review things first. Others want us to handle more automatically.",
+      "This helps us decide when to ask and when to act.",
     ],
-    leftLabel: "I want to decide",
-    rightLabel: "Handle it for me",
+    leftLabel: "Ask me first",
+    rightLabel: "Handle more for me",
   },
   {
     key: "surface",
     question: "Should we watch individual devices?",
     helperParagraphs: [
-      "Sometimes one device uses much more than the others.",
-      "This helps us decide whether to look at totals only, or call out device-level issues.",
+      "One device can use much more than the others.",
+      "This helps us decide whether to watch the total only or each device too.",
     ],
     infoParagraphs: [
-      "Sometimes one device uses much more than the others.",
-      "This helps us decide whether to look at totals only, or call out device-level issues.",
+      "One device can use much more than the others.",
+      "This helps us decide whether to watch the total only or each device too.",
     ],
-    leftLabel: "Let it average out",
-    rightLabel: "Flag imbalances early",
+    leftLabel: "Watch the overall total",
+    rightLabel: "Watch each device",
   },
 ];
 
@@ -145,8 +146,7 @@ export default function MonitoringPreferences() {
         <header className="stack-tight">
           <h1 className="h1">We'll keep an eye on things</h1>
           <p className="subhead">
-            Tell us what matters and we'll keep you informed without unnecessary
-            interruptions.
+            Choose what you want us to watch and when we should let you know.
           </p>
         </header>
 
@@ -178,7 +178,7 @@ export default function MonitoringPreferences() {
             style={{ marginTop: "var(--space-sliders-to-explanatory-section, 32px)" }}
           >
             <p className="results-card-helper">
-              Some changes fine-tune the result instead of changing it right away.
+              Small changes help fine-tune when we alert you.
             </p>
             <ResultsCard posture={posture} stabilityPulse={stabilityPulse} />
             <div
@@ -200,6 +200,7 @@ export default function MonitoringPreferences() {
       <ConfirmationModal
         isOpen={saveModalOpen}
         onClose={() => setSaveModalOpen(false)}
+        postureId={MODAL_POSTURE_BY_COMPUTE_POSTURE[posture.id]}
       />
     </div>
   );
