@@ -267,9 +267,7 @@
   }
 
   .card-body > ul > li {
-    background-color: #ffffff;
     color: #333333;
-    border: 1px solid #b8c4d6;
   }
   
   .card-title {
